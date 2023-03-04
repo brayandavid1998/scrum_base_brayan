@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+    <data>
+    <record id="view_form_scrum_user_task" model="ir.ui.view">
+         <field name="name">view.form.scrum.user_task</field>
+         <field name="model">scrum.user.task</field>
+         <field name="arch" type="xml">
+            <form string="Developer Tasks">
+                <header>
+                    <button name="exe_be_planned" string="To be Planned" icon='fa-home' type="object"
+                            attrs="{'invisible': [('state','!=','on_hold')]}"/>
+                    <button name="exe_assigned" string="To Assign" icon='fa-cloud-upload' class="oe_highlight"
+                            type="object" groups="scrum_base.group_scrum_admin_base"/>
+                    <button name="exe_i_want" string="I Want" class="oe_highlight" icon='fa-heart-o' type="object"
+                            attrs="{'invisible': [('state','!=','to_be_planned')]}"/>
+                    <button name="exe_doing" string="Doing" class="oe_highlight" icon='fa-home' type="object"
+                            attrs="{'invisible': [('state','!=','assigned'),('state','!=','test')]}"/>
+                    <button name="exe_test" string="Test" class="oe_highlight" icon='fa-magic' type="object"
+                            attrs="{'invisible': [('state','!=','doing')]}"/>
+                    <button name="exe_qa" string="QA" class="oe_highlight" icon='fa-plus' type="object"
+                            attrs="{'invisible': [('state','!=','test')]}"/>
+                    <button name="exe_delivery" string="Delivery" icon='fa-rocket' class="oe_highlight" type="object"
+                            attrs="{'invisible': [('state','!=','qa')]}"/>
+                    <button name="exe_open" string="Open" icon='fa-times' type="object"
+                            attrs="{'invisible': [('state','!=','delivery')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_incident" icon="fa-bug"
+                                attrs="{'invisible': [('incidents_count', '=', 0)]}">
+                            <field string="Incident" name="incidents_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group>
+                          <field name="desc" required="1"/>
+                          <field name="product_id" options='{"no_create": 1, "no_open": 1}' widget="many2one"/>
+                          <field name="sprint_id" widget="many2one"/>
+                          <field name="story_id" widget="many2one"/>
+                          <field name="process_id" options='{"no_create": 1, "no_open":1}'/>
+                          <field name="type_id" options='{"no_create": 1, "no_open":1}' widget="many2one"/>
+                          <field name="planned_hours"/>
+                          <field name="executed_hours" widget="float_time"/>
+                          <field name="responsable_id" options='{"no_create": 1, "no_open": 1}'/>
+                       </group>
+                      <group>
+                          <field name="priority"/>
+                          <field name="application_date" readonly="0" widget="datetime"/>
+                          <field name="planned_date" readonly="0" widget="datetime"/>
+                          <field name="end_date" widget="datetime" readonly="1"/>
+                          <field name="real_init_date"/>
+                          <field name="real_end_date"/>
+                          <field name="assigned_id" readonly="1"/>
+                          <field name="enable_user" invisible="1"/>
+                          <field name="enable_analytic" invisible="1"/>
+
+                          <field name="file_name" invisible="1"/>
+                          <field name="file_01" filename="file_name"/>
+                       </group>
+                  </group>
+                  <notebook>
+                      <page name="obs" string="Observation">
+                          <field name="obs" widget="html"/>
+                      </page>
+                      <page name="activity_control" string="History Activities" attrs="{'invisible': [('product_id', '=', False)]}">
+                          <field name="activity_control_ids" widget="one2many">
+                              <tree editable="bottom" create="true" delete="true">
+                                  <field name="description"/>
+                                  <field name="date"  widget="date"/>
+                                  <field name="hours"/>
+                                  <field name="analytic_account_id"  attrs="{'column_invisible': [('parent.enable_analytic','=', False)]}"/>
+                                  <field name="user_id" attrs="{'readonly': [('parent.enable_user', '=', False)]}"/>
+                              </tree>
+                          </field>
+                      </page>
+                  </notebook>
+              </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+         </field>
+    </record>
+
+    <record id="view_tree_scrum_user_task" model="ir.ui.view">
+         <field name="name">view.tree.scrum.user_task</field>
+         <field name="model">scrum.user.task</field>
+         <field name="arch" type="xml">
+             <tree default_order='planned_hours' decoration-danger="state != 'delivery'" decoration-bf="priority == '5'">
+                 <field name="name"/>
+                 <field name="desc"/>
+                 <field name="application_date"/>
+                 <field name="planned_date"/>
+                 <field name="end_date"/>
+                 <field name="product_id"/>
+                 <field name="story_id"/>
+                 <field name="process_id"/>
+                 <field name="responsable_id"/>
+                 <field name="assigned_id"/>
+                 <field name="planned_hours"/>
+                 <field name="executed_hours"/>
+                 <field name="priority"/>
+                 <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+     <record id="scrum_task_filter" model="ir.ui.view">
+        <field name="name">scrum.task.filter</field>
+        <field name="model">scrum.user.task</field>
+        <field name="arch" type="xml">
+             <search string="Search Requirement">
+                 <field name="process_id" filter_domain="[('process_id.name','ilike',self)]"/>
+                 <filter name="to_do" string="To Do" domain="[('state','=','to_do')]"/>
+                 <filter name="doing" string="Doing" domain="[('state','=','doing')]"/>
+                 <!--<filter name="done" string="Done" domain="[('state','=','done')]"/>-->
+                 <filter name="qa" string="QA" domain="[('state','=','qa')]"/>
+                 <filter name="delivery" string="Delivery" domain="[('state','=','delivery')]"/>
+                 <filter name="all_no_done" string="All for Done" domain="[('state', '!=', 'delivery')]"/>
+                 <separator/>
+                 <group expand="0" string="Group By">
+                     <filter name="group_by_sprint_id" string="By Sprint" context="{'group_by': 'sprint_id'}"/>
+                     <filter name="group_by_process" string="By process " context="{'group_by':'process_id'}"/>
+                     <filter name="group_by_state" string="By State" context="{'group_by': 'state'}"/>
+                     <filter name="group_by_responsable" string="Responsable" context="{'group_by':'responsable_id'}"/>
+                     <filter name="group_by_story" string="User Story" context="{'group_by':'story_id'}"/>
+                 </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_scrum_user_task" model="ir.actions.act_window">
+        <field name="name">Requirement</field>
+        <field name="res_model">scrum.user.task</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_all_no_done":1}</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Press to create a New</p>
+       </field>
+    </record>
+
+
+     </data>
+</odoo>

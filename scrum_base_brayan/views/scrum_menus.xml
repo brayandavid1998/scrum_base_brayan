@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="scrum_menu_main" name="Scrum" sequence="100" web_icon="scrum_base,static/description/icon.png"/>
+
+    <!-- Menú Secundario: Hereda del menú principal -->
+    <menuitem id="scrum_menu_2" name="Main" parent="scrum_menu_main" sequence="10"/>
+    <menuitem id="menu_project_3"
+              name="Projects"
+              parent="scrum_menu_2"
+              sequence="10"
+              action="action_scrum_project"/>
+    <menuitem id="menu_ticket_3_product"
+              name="Products"
+              parent="scrum_menu_2"
+              sequence="20"
+              action="action_scrum_product"/>
+    <menuitem id="scrum_sprint_menu"
+              name="Sprint"
+              parent="scrum_menu_2"
+              sequence="23"
+              action="scrum_sprint_act_window"/>
+    <menuitem id="menu_scrum_3_user_story"
+              name="User Stories"
+              parent="scrum_menu_2"
+              sequence="30"
+              action="action_scrum_user_story"/>
+    <menuitem id="menu_scrum_3_user_task"
+              name="Requirement"
+              parent="scrum_menu_2"
+              sequence="40"
+              action="action_scrum_user_task"/>
+    <menuitem id="menu_scrum_user_bug"
+              name="Incidents"
+              parent="scrum_menu_2"
+              sequence="50"
+              action="action_scrum_user_bug1"/>
+
+
+    <!-- Menú Secundario: Hereda del menú principal -->
+    <menuitem id="scrum_menu_3" name="Internal Meetings" parent="scrum_menu_main" sequence="20"/>
+    <menuitem id="menu_meeting_3"
+              name="Daily Meetings"
+              parent="scrum_menu_3"
+              sequence="10"
+              action="action_scrum_meeting"/>
+
+    <!-- Menú Secundario: Hereda del menú principal -->
+    <menuitem id="scrum_menu_4" name="External Meetings" parent="scrum_menu_main" sequence="30"/>
+    <menuitem id="menu_review"
+              name="Sprint Review"
+              parent="scrum_menu_4"
+              sequence="20"
+              action="action_scrum_review"/>
+
+    <!-- Menú Secundario: Hereda del menú principal -->
+    <menuitem id="scrum_menu_5" name="Documentation" parent="scrum_menu_main" sequence="50"/>
+    <menuitem id="menu_notes"
+              name="Notes"
+              parent="scrum_menu_5"
+              sequence="10"
+              action="action_scrum_notes"/>
+    <menuitem id="menu_wiki"
+              name="Wiki"
+              parent="scrum_menu_5"
+              sequence="20"
+              action="action_scrum_wiki"/>
+    <menuitem id="menu_book"
+              name="Books"
+              parent="scrum_menu_5"
+              sequence="30"
+              action="action_scrum_book"/>
+
+    <!-- Menú Secundario: Hereda del menú principal -->
+    <menuitem name="Configurations" id="configuration_menu" parent="scrum_menu_main" sequence="100"
+              groups="scrum_base.group_scrum_admin_base"/>
+    <menuitem name="Settings"
+              id="scrum_setting_type_menu"
+              parent="configuration_menu"
+              sequence="5"
+              action="scrum_settings_act_window"/>
+    <menuitem name="Process"
+              id="scrum_process_menu"
+              parent="configuration_menu"
+              sequence="10"
+              action="scrum_process_act_window"/>
+    <menuitem name="Category"
+              id="scrum_category_menu"
+              parent="configuration_menu"
+              sequence="15"
+              action="scrum_category_act_window"/>
+    <menuitem name="Type"
+              id="scrum_type_menu"
+              parent="configuration_menu"
+              sequence="17"
+              action="scrum_type_act_window"/>
+    <menuitem name="Incidence Types"
+              id="scrum_incidence_type_menu"
+              parent="configuration_menu"
+              sequence="20"
+              action="scrum_incidence_type_act_window"/>
+
+</odoo>

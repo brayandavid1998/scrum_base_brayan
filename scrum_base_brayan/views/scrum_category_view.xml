@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="scrum_category_tree_view" model="ir.ui.view">
+        <field name="name">scrum_base.scrum.category.tree</field>
+        <field name="model">scrum.category</field>
+        <field name="arch" type="xml">
+            <tree string="ModelTitle" editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="abbreviation"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="scrum_category_act_window" model="ir.actions.act_window">
+        <field name="name">Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.category</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no Categories here !
+            </p>
+        </field>
+    </record>
+
+</odoo>

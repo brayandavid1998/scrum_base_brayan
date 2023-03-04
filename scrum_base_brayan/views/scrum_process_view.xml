@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="scrum_process_tree_view" model="ir.ui.view">
+        <field name="name">scrum_base.scrum.process.tree</field>
+        <field name="model">scrum.process</field>
+        <field name="arch" type="xml">
+            <tree string="Process" editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="abbreviation"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="scrum_process_act_window" model="ir.actions.act_window">
+        <field name="name">Process</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.process</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no Process here !
+            </p>
+        </field>
+    </record>
+
+</odoo>

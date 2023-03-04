@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_form_scrum_user_story" model="ir.ui.view">
+            <field name="name">view.form.scrum.user_story</field>
+            <field name="model">scrum.user.story</field>
+            <field name="arch" type="xml">
+                <form string="User Storys">
+                    <header>
+                        <button name="exe_doing" string="Doing" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state','!=','to_do')]}"/>
+                        <button name="exe_done" string="Done" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state','!=','doing')]}"/>
+                        <button name="exe_open" string="Open" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state','!=','done')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="action_view_requirement"
+                                    icon="fa-github-alt"
+                                    attrs="{'invisible': [('task_count', '=', 0)]}">
+                                <field string="Requirement" name="task_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_view_bug" icon="fa-bug"
+                                    attrs="{'invisible': [('bug_count', '=', 0)]}">
+                                <field string="Incident" name="bug_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="desc" required="1"/>
+                                <field name="product_id" required="1" options='{"no_create": 1, "no_open": 1}'/>
+                                <field name="responsable_id"/>
+                            </group>
+                            <group>
+                                <field name="entry_date" readonly="1"/>
+                                <field name="end_date" readonly="1"/>
+
+                                <field name="file_name" invisible="1"/>
+                                <field name="file_01" filename="file_name"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="obs_how" widget="html"/>
+                            <field name="obs_want" widget="html"/>
+                            <field name="obs_for" widget="html"/>
+                            <field name="obs_terms" widget="html"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tree_scrum_user_story" model="ir.ui.view">
+            <field name="name">view.tree.scrum.user_story</field>
+            <field name="model">scrum.user.story</field>
+            <field name="arch" type="xml">
+                <!--             <tree colors="red:state=='to_do'; blue:state=='doing';">-->
+                <tree decoration-danger="state == 'to_do'" decoration-info="state == 'doing'">
+                    <field name="name"/>
+                    <field name="desc"/>
+                    <field name="entry_date"/>
+                    <field name="end_date"/>
+                    <field name="desc"/>
+                    <field name="product_id"/>
+                    <field name="responsable_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="scrum_user_story_filter" model="ir.ui.view">
+            <field name="name">scrum.user.story.filter</field>
+            <field name="model">scrum.user.story</field>
+            <field name="arch" type="xml">
+                <search string="Search User Story">
+                    <field name="product_id" filter_domain="[('product_id.name','ilike',self)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_product_id" string="By product" context="{'group_by':'product_id'}"/>
+                        <filter name="group_by_state" string="By Sprint" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_scrum_user_story" model="ir.actions.act_window">
+            <field name="name">User Stories</field>
+            <field name="res_model">scrum.user.story</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Press to create a New
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

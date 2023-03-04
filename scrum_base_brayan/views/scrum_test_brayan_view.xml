@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <record id="view_form_sccum_test_brayan" model= "ir.ui.view">
+        <fields name= "name"> productos</fields>
+        <fields name="model">test</fields>
+        <fields name="arch" type ="xml">
+            <form string = "test brayan">
+                <header>
+                    <button name="test_brayan" string="Crear" type="objetc" />
+                    <button name="test_brayan" string="descartar" type="abjetc" />
+                     <sheet>
+                        <group>
+                            <fields name="name" />
+                            <fields name="expires" />
+                            <fields name="typroduct" />
+                            <fields name="Amount_Product" />
+                        </group>
+                     </sheet>
+                </header>
+            </form>
+        </fields>
+    </record>
+</odoo>
+
+
+

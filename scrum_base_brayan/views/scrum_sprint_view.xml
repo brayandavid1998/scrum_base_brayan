@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="scrum_sprint_form_view" model="ir.ui.view">
+            <field name="name">scrum_sprint.form</field>
+            <field name="model">scrum.sprint</field>
+            <field name="arch" type="xml">
+                <form string="Sprint">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="process_id" options='{"no_create": 1, "no_open": 1}'/>
+                                <field name="initial_sprint" widget="date"/>
+                                <field name="end_sprint" widget="date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="scrum_sprint_tree_view" model="ir.ui.view">
+            <field name="name">scrum_sprint.tree</field>
+            <field name="model">scrum.sprint</field>
+            <field name="arch" type="xml">
+                <tree string="Sprint">
+                    <field name="name" widget="char"/>
+                    <field name="process_id"/>
+                    <field name="initial_sprint" widget="date"/>
+                    <field name="end_sprint" widget="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="scrum_sprint_filter" model="ir.ui.view">
+            <field name="name">scrum.sprint.filter</field>
+            <field name="model">scrum.sprint</field>
+            <field name="arch" type="xml">
+                <search string="Search Sprint">
+                    <field name="process_id" string="Process" filter_domain="[('process_id', 'ilike', self)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="by_process_id" string="By Process" context="{'group_by': 'process_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="scrum_sprint_act_window" model="ir.actions.act_window">
+            <field name="name">Scrum Sprint</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">scrum.sprint</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no Sprint
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

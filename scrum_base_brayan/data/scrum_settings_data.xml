@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="scrum_settings_default_base_company" model="scrum.settings">
+            <field name="able_to_modify_user">True</field>
+            <field name="enable_analytic_account">True</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

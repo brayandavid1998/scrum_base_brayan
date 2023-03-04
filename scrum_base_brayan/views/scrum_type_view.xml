@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="scrum_type_tree_view" model="ir.ui.view">
+            <field name="name">scrum.type.tree</field>
+            <field name="model">scrum.type</field>
+            <field name="arch" type="xml">
+                <tree string="Type" editable="bottom">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="abbreviation"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="scrum_type_act_window" model="ir.actions.act_window">
+            <field name="name">Scrum Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">scrum.type</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no types !
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

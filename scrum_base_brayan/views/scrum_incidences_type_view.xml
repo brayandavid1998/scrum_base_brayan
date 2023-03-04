@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="scrum_incidence_type_tree_view" model="ir.ui.view">
+        <field name="name">scrum.incidence.type.tree</field>
+        <field name="model">scrum.incidences.type</field>
+        <field name="arch" type="xml">
+            <tree string="Incidences Type" editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="is_rq_affected"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="scrum_incidence_type_act_window" model="ir.actions.act_window">
+        <field name="name">Incidences Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.incidences.type</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html" >
+            <p class="oe_view_nocontent_create">
+                There is no incidences types !
+            </p>
+        </field>
+    </record>
+
+</odoo>
